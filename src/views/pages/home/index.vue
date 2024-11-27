@@ -19,6 +19,8 @@ onMounted(() => {
 
     <i class="speediz-image speediz-image-box" />
 
+    <el-button type="warning" plain>Warning</el-button>
+
     <el-button type="primary">Primary</el-button>
   </div>
 </template>
