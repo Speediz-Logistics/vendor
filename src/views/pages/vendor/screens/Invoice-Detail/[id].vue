@@ -2,7 +2,7 @@
 import {useRouter, useRoute} from "vue-router";
 import {useInvoiceStore} from "@/store/invoice.js";
 import {onMounted} from "vue";
-import InvoiceDetail from "@/components/Invoice-detail.vue";
+import InvoiceHistoryDetail from "@/components/Invoice-history-detail.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -21,6 +21,7 @@ const showInvoice = async (id) => {
   try{
     const response = await show(id)
     data.value = response?.data || []
+    console.log('response',data.value)
   }catch (error){
     console.log('failed to showInvoice',error)
   }
@@ -36,7 +37,7 @@ onMounted(() => {
   <div class="d-flex flex-row">
     <div class="sidebar">
       <h1 class="text-white fw-bold">Invoice Management</h1>
-      <div class="content text-white fw-bold " @click="dailyInvoice()">
+      <div class="content text-white fw-bold" @click="dailyInvoice">
         Daily Invoice
       </div>
       <div class="content text-white fw-bold border rounded bg-dark">
@@ -48,8 +49,14 @@ onMounted(() => {
       </button>
     </div>
     <div class="container">
-      <h1>Invoice Detail</h1>
-      <InvoiceDetail :data="data" />
+      <div class="content">
+        <el-card class="invoice-card" shadow="hover">
+          <h1>Invoice Detail</h1>
+          <div v-if="data">
+            <InvoiceHistoryDetail :data="data" />
+          </div>
+        </el-card>
+      </div>
     </div>
   </div>
 </template>
