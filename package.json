@@ -28,6 +28,7 @@
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.10",
     "element-plus": "^2.8.8",
+    "lodash": "^4.17.21",
     "mapbox-gl": "^3.9.2",
     "mitt": "^3.0.1",
     "pinia": "^2.1.7",

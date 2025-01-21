@@ -27,9 +27,21 @@ const fetchPackageDetail = async (id) => {
 // Set the timeline based on the package's status
 const setPackageTimeline = (status) => {
   activities.value = [
-    { content: 'Pending', type: status === 'pending' ? 'success' : 'info', class: status === 'pending' ? 'active' : '' },
-    { content: 'In-transit', type: status === 'in-transit' ? 'success' : 'info', class: status === 'in-transit' ? 'active' : '' },
-    { content: 'Completed', type: status === 'completed' ? 'success' : 'info', class: status === 'completed' ? 'active' : '' }
+    {
+      content: 'Pending',
+      type: status === 'pending' ? 'success' : 'info',
+      class: status === 'pending' ? 'active' : '',
+    },
+    {
+      content: 'In-transit',
+      type: status === 'in-transit' || status === 'completed' ? 'success' : 'info',
+      class: status === 'in-transit' || status === 'completed' ? 'active' : '',
+    },
+    {
+      content: 'Completed',
+      type: status === 'completed' ? 'success' : 'info',
+      class: status === 'completed' ? 'active' : '',
+    },
   ];
 };
 
@@ -123,7 +135,6 @@ onMounted(() => {
             </tbody>
           </table>
         </div>
-
         <table>
           <tbody class="d-flex flex-row justify-content-between">
           <!-- Timeline Package -->

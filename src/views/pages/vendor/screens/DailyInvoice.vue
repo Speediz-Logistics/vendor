@@ -1,14 +1,43 @@
 <script setup>
-import {useRouter } from  'vue-router'
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import InvoiceDetail from "@/components/Invoice-detail.vue";
-const router = useRouter()
+import { useInvoiceStore } from "@/store/invoice.js";
+
+const router = useRouter();
+const invoiceStore = useInvoiceStore();
+const { all } = invoiceStore;
+
+const data = ref([]);
 
 const HistoryInvoice = () => {
-  router.push({name: 'history-invoice'});
-}
+  router.push({ name: "history-invoice" });
+};
+
 const backHome = () => {
-  router.push({name: 'onboard-Screen'});
-}
+  router.push({ name: "onboard-Screen" });
+};
+
+const dailyInvoice = () => {
+  router.push({ name: "daily-invoice" });
+};
+
+const fetchInvoice = async () => {
+  try {
+    const date = new Date();
+    const params = {
+      date: date.toLocaleDateString(),
+    };
+    const response = await all(params);
+    data.value = response?.data || [];
+  } catch (error) {
+    console.error("Failed to fetch invoices", error);
+  }
+};
+
+onMounted(() => {
+  fetchInvoice();
+});
 </script>
 
 <template>
@@ -28,7 +57,7 @@ const backHome = () => {
     </div>
     <div class="container">
       <h1>Invoice Detail</h1>
-      <InvoiceDetail />
+      <InvoiceDetail :data="data" />
     </div>
   </div>
 </template>
