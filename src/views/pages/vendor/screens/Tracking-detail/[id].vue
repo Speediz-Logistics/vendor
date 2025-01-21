@@ -139,7 +139,7 @@ onMounted(() => {
                 {{ activity.content }}
               </el-timeline-item>
             </el-timeline>
-            <el-button type="info" class="w-25" @click="handleTracking(packageDetail.package.id)">Tracking Detail</el-button>
+            <el-button v-if="packageDetail?.package?.status === 'in_transit'" type="info" class="w-25" @click="handleTracking(packageDetail.package.id)">Tracking Detail</el-button>
           </tr>
 
           <tr class="delivery-detail d-flex flex-column text-spacing">
