@@ -73,6 +73,27 @@ export default [
         path: 'logout',
         name: 'logout',
         component: () => import('@/views/pages/vendor/screens/Profile-setting/Logout.vue')
+      },
+      {
+        path:'history-invoice',
+        name: 'history-invoice',
+        component: () => import('@/views/pages/vendor/screens/HistoryInvoice.vue')
+      },
+      {
+        path:'invoice-detail/:id',
+        name: 'invoice-detail',
+        component: () => import('@/views/pages/vendor/screens/Invoice-Detail/[id].vue')
+      },
+      {
+        path: 'daily-invoice',
+        name: 'daily-invoice',
+        component: () => import('@/views/pages/vendor/screens/DailyInvoice.vue')
+      },
+      {
+        path: 'invoice',
+        name: 'invoice',
+        component: () => import('@/components/Invoice-detail.vue')
+
       }
     ],
   },

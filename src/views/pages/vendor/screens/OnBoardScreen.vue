@@ -46,11 +46,11 @@
       </a>
       <p> Packages <br>Tracking</p>
     </button>
-    <button class="content-3">
+    <button class="content-3" @click="invoiceManagement()">
       <a>
         <img src="@/assets/icon/content3.svg" alt="icon content1">
       </a>
-      <p> Packages <br></br>Invoices</p>
+      <p>Invoices Management</p>
     </button>
   </div>
 
@@ -73,6 +73,9 @@ const packageManagement = () => {
 const dailyTracking = () => {
   router.push({name:'package-tracking'});
 
+}
+const invoiceManagement = () => {
+  router.push({name:'daily-invoice'})
 }
 </script>
 
