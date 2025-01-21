@@ -55,7 +55,7 @@ export default [
         component: () => import('@/views/pages/vendor/screens/Tracking-detail/[id].vue')
       },
       {
-        path: 'view-tracking',
+        path: 'view-tracking/:id',
         name: 'view-tracking',
         component: () => import('@/views/pages/vendor/screens/View-tracking/[id].vue')
       },
