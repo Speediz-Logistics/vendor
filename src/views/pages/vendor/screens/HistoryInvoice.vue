@@ -81,7 +81,7 @@ onMounted(() => {
       <div class="table">
         <el-table :data="tableData">
           <el-table-column prop="invoice_number" label="Invoice No." width="180" />
-          <el-table-column prop="date" label="Date" width="180" />
+          <el-table-column prop="created_at" label="Date" width="280" />
           <el-table-column prop="total" label="Total" width="180" />
           <el-table-column prop="status" label="Status" width="380" />
           <el-table-column>

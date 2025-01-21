@@ -1,6 +1,8 @@
 <script setup>
 import {useRouter } from  'vue-router'
 import InvoiceDetail from "@/components/Invoice-detail.vue";
+import {useInvoiceStore} from "@/store/invoice.js";
+import {onMounted} from "vue";
 const router = useRouter()
 
 const HistoryInvoice = () => {
@@ -9,6 +11,32 @@ const HistoryInvoice = () => {
 const backHome = () => {
   router.push({name: 'onboard-Screen'});
 }
+
+const tableData = ref([])
+const currentPage = ref(1)
+const totalPages = ref(0)
+const date = ref(null);
+const route = useRoute();
+const invoiceStore = useInvoiceStore();
+const {show } =invoiceStore
+const data = ref([])
+const dailyInvoice = () => {
+  router.push({name: 'daily-invoice'});
+}
+
+const showInvoice = async (id) => {
+  try{
+    const response = await show(id)
+    data.value = response?.data || []
+  }catch (error){
+    console.log('failed to showInvoice',error)
+  }
+}
+
+onMounted(() => {
+  const id = route.params.id;
+  showInvoice(id)
+})
 </script>
 
 <template>

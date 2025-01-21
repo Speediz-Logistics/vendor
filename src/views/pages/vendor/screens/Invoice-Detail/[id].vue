@@ -1,11 +1,13 @@
 <script setup>
-import {useRouter} from "vue-router";
+import {useRouter, useRoute} from "vue-router";
 import {useInvoiceStore} from "@/store/invoice.js";
 import {onMounted} from "vue";
 import InvoiceDetail from "@/components/Invoice-detail.vue";
 
 const router = useRouter();
+const route = useRoute();
 const invoiceStore = useInvoiceStore();
+const {show } =invoiceStore
 const data = ref([])
 const dailyInvoice = () => {
   router.push({name: 'daily-invoice'});
@@ -15,7 +17,18 @@ const backHome = () => {
   router.push({name: 'history-invoice'});
 }
 
+const showInvoice = async (id) => {
+  try{
+    const response = await show(id)
+    data.value = response?.data || []
+  }catch (error){
+    console.log('failed to showInvoice',error)
+  }
+}
+
 onMounted(() => {
+  const id = route.params.id;
+  showInvoice(id)
 })
 </script>
 
@@ -36,7 +49,7 @@ onMounted(() => {
     </div>
     <div class="container">
       <h1>Invoice Detail</h1>
-      <InvoiceDetail />
+      <InvoiceDetail :data="data" />
     </div>
   </div>
 </template>
