@@ -28,8 +28,8 @@ const fetchPackageDetail = async (id) => {
 const setPackageTimeline = (status) => {
   activities.value = [
     { content: 'Pending', type: status === 'pending' ? 'success' : 'info', class: status === 'pending' ? 'active' : '' },
-    { content: 'In-transit', type: status === 'in-transit' ? 'success' : 'info', class: status === 'in-transit' ? 'active' : '' },
-    { content: 'Completed', type: status === 'completed' ? 'success' : 'info', class: status === 'completed' ? 'active' : '' }
+    { content: 'In-transit', type: status === 'in_transit' ? 'success' : 'info', class: status === 'in-transit' ? 'active' : '' },
+    { content: 'Completed', type: status === 'complete' ? 'success' : 'info', class: status === 'completed' ? 'active' : '' }
   ];
 };
 

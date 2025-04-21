@@ -35,14 +35,18 @@ onMounted(async () => {
   await getPackage();
   const { delivery_tracking, location } = packages.value;
 
+  console.log('Start:', [delivery_tracking.lng, delivery_tracking.lat]);
+  console.log('End:', [location.lng, location.lat]);
+
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     center: [delivery_tracking.lng, delivery_tracking.lat],
     zoom: 12,
-    interactive: true, // Enable zooming
+    interactive: true,
   });
 
+  // Add markers
   new mapboxgl.Marker({ color: 'blue' })
     .setLngLat([delivery_tracking.lng, delivery_tracking.lat])
     .addTo(map);
@@ -51,28 +55,37 @@ onMounted(async () => {
     .setLngLat([location.lng, location.lat])
     .addTo(map);
 
-  const directions = new MapboxDirections({
-    accessToken: mapboxgl.accessToken,
-    unit: 'metric',
-    profile: 'mapbox/driving',
-    alternatives: false,
-    controls: { instructions: false },
-    geometries: 'geojson',
-  });
+  map.on('load', () => {
+    const directions = new MapboxDirections({
+      accessToken: mapboxgl.accessToken,
+      unit: 'metric',
+      profile: 'mapbox/driving',
+      alternatives: false,
+      controls: {
+        instructions: true,
+        inputs: true,
+        profileSwitcher: true
+      },
+      geometries: 'geojson',
+    });
 
-  map.addControl(directions, 'top-left');
+    map.addControl(directions, 'top-left');
 
-  // Ensure directions load correctly
-  setTimeout(() => {
     directions.setOrigin([delivery_tracking.lng, delivery_tracking.lat]);
     directions.setDestination([location.lng, location.lat]);
-  }, 1000);
 
-  directions.on('route', () => {
-    const routeLayerId = 'directions-route-line';
-    if (map.getLayer(routeLayerId)) {
-      map.setPaintProperty(routeLayerId, 'line-width', 4);
-    }
+    directions.on('error', (e) => {
+      console.error('Directions error:', e.error);
+    });
+
+    directions.on('route', (e) => {
+      console.log('Route received:', e.route);
+      const routeLayerId = 'directions-route-line';
+      if (map.getLayer(routeLayerId)) {
+        map.setPaintProperty(routeLayerId, 'line-width', 4);
+        map.setPaintProperty(routeLayerId, 'line-color', '#3b82f6');
+      }
+    });
   });
 });
 
