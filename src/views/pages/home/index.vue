@@ -26,8 +26,6 @@ const navigateTo = (page) => {
       <el-button class="button" @click="navigateTo('login')" round>Login</el-button>
       <el-button class="button" @click="navigateTo('register')" round>Sign Up</el-button>
 
-      <el-button class="button" round>Logout</el-button>
-
     </div>
 
   </div>
