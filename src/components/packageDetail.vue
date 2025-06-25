@@ -44,7 +44,7 @@ defineProps({
 
           <tr class="package-image d-flex flex-column ">
             <td colspan="2" class="fw-bold  text-spacing">Package's Image</td>
-            <td colspan="2" class="image">
+            <td v-if="packageDetail.data?.image" colspan="2" class="image">
               <img :src="packageDetail.data?.image" alt="Package Image" class="img-fluid" />
             </td>
           </tr>
